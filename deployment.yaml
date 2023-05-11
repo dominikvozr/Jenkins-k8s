@@ -13,9 +13,11 @@ spec:
       labels:
         app: jenkins-server
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: test-cluster
       securityContext:
-            fsGroup: 1000 
-            runAsUser: 1000
+            fsGroup: 1000
+            runAsUser: 0
       serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
@@ -32,9 +34,12 @@ spec:
               containerPort: 8080
             - name: jnlpport
               containerPort: 50000
+          env:
+            - name: JENKINS_OPTS
+              value: "--prefix=/jenkins"
           livenessProbe:
             httpGet:
-              path: "/login"
+              path: "/jenkins/login"
               port: 8080
             initialDelaySeconds: 90
             periodSeconds: 10
@@ -42,7 +47,7 @@ spec:
             failureThreshold: 5
           readinessProbe:
             httpGet:
-              path: "/login"
+              path: "/jenkins/login"
               port: 8080
             initialDelaySeconds: 60
             periodSeconds: 10
@@ -50,7 +55,7 @@ spec:
             failureThreshold: 3
           volumeMounts:
             - name: jenkins-data
-              mountPath: /var/jenkins_home         
+              mountPath: /var/jenkins_home
       volumes:
         - name: jenkins-data
           persistentVolumeClaim:

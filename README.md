@@ -1,3 +1,5 @@
-# Kubernetes Manifests for Jenkins Deployment
+# Kubernetes Jenkins Manifesty
+Tieto manifesty vznikli za pomoci návodu v nižšie uvedenom zdroji.
 
-Refer https://devopscube.com/setup-jenkins-on-kubernetes-cluster/ for step by step process to use these manifests.
+
+Zdroj https://devopscube.com/setup-jenkins-on-kubernetes-cluster/.

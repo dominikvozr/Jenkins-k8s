@@ -6,12 +6,11 @@ metadata:
   annotations:
       prometheus.io/scrape: 'true'
       prometheus.io/path:   /
-      prometheus.io/port:   '8080'
+      prometheus.io/port:   '8081'
 spec:
-  selector: 
+  selector:
     app: jenkins-server
-  type: NodePort  
+  type: ClusterIP
   ports:
-    - port: 8080
+    - port: 8081
       targetPort: 8080
-      nodePort: 32000
